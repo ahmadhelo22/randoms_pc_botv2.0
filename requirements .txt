@@ -1,0 +1,6 @@
+pyrogram
+bs4
+redis
+requests
+asyncio
+flask
