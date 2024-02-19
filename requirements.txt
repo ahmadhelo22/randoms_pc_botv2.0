@@ -1,3 +1,4 @@
+lxml
 pyrogram
 bs4
 redis
