@@ -411,10 +411,10 @@ async def movie_name(bot:Client, msg):
                 a = await searsh_resolts_name_git_into_pc(app_name)
                 #اضافه نتائج البحث
 
-                # try:
-                servers_dic['server_one'].extend(a)
-                await button_generater_func(a, InlineKeyboardButton, InlineKeyboardMarkup, msg)
-                # except:
+                try:
+                    servers_dic['server_one'].extend(a)
+                    await button_generater_func(a, InlineKeyboardButton, InlineKeyboardMarkup, msg)
+                except:
                     # await bot.send_message ( user_id, "البرنامج غير موجود تاكد من الاسم او اعد المحاوله لاحقا" )
 
 
