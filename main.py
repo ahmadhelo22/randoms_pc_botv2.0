@@ -519,7 +519,7 @@ async def movie_name(bot:Client, msg):
                     servers_dic['server_two'].extend(a)
                     await msg_for_bot.delete()
                     await button_generater_func(a, InlineKeyboardButton, InlineKeyboardMarkup, msg)
-                except:
+                except Exception as e :
                     await msg_for_bot.delete()
                     await bot.send_message ( user_id, "البرنامج غير موجود تاكد من الاسم او اعد المحاوله لاحقا" )
 
