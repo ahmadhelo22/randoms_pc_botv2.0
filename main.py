@@ -522,6 +522,7 @@ async def movie_name(bot:Client, msg):
                 except Exception as e :
                     await msg_for_bot.delete()
                     await bot.send_message ( user_id, "البرنامج غير موجود تاكد من الاسم او اعد المحاوله لاحقا" )
+                    await bot.send_message ( user_id, e )
 
             
             elif num_of_the_server == '3':
