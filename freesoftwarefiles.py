@@ -41,7 +41,7 @@ async def searsh_resolts_name_free_soft_ware(app_name):
         #         apps_list.append(app_name_)
 
         #     return apps_list
-    except as e:
+    except Exception as e:
         # bot.send_message ( user_id, "البرنامج غير موجود تاكد من الاسم او اعد المحاوله لاحقا" )
         print(e)
 
