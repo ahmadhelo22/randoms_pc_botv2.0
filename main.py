@@ -23,8 +23,7 @@ else:
     write(db_path, [])
 data = read(db_path)
 
-bot_token="6104541947:AAEo6iheXd1IaI33yHtz9Ip_DuMVi3sXQCw"
-
+bot_token="6626941096:AAERjvdFJsOV7y3p3mng0cH8geFe6x1Y9Fs"
 #معلومات و التعريف عن البوت
 bot_pyrogram = Client(
     name='Bot',
@@ -33,7 +32,21 @@ bot_pyrogram = Client(
     bot_token=bot_token
 )
 
+# #الحصول على جميع id الن\مستخدمين في القناه
+# ch = "RANDOMS_CH" 
+# with bot_pyrogram as client:
+#     # الحصول على معرفات المستخدمين في القناة
+#     users = client.get_chat_members(ch)
 
+#     # طباعة معرفات المستخدمين
+#     for user in users:
+#         user_id = user.user.id
+
+#         if user_id not in data and user_id != 6104541947 and user_id != 6626941096:
+#             data.append(user_id)
+#             write(db_path, data)
+#         else:
+#             pass
 
 #تحتوي على مذا بحث المستخدم
 servers_search_name_dic = {
@@ -106,7 +119,7 @@ async def on_owner_command(bot:Client, msg:Message):
             id = msg.text
             text_to_send = id.split(None, 1)[1]
             for i in data:
-                await bot.send_message(i, text_to_send)
+                    await bot.send_message(i, text_to_send)
         except:
             await msg.reply("يوجد مشكله بارسال الرسائل لجميع المستخدمين او يجب ان تكتب الرساله التي تود ارسالها للمستخدمين")
 
@@ -304,7 +317,7 @@ async def pages_(bot:Client, msg):
 
 #ارسال مقطع اختصار الروابط windos
 @bot_pyrogram.on_message(filters.regex('تخطي الاعلانات windows'))
-async def skip_ad_windos(bot:Client, msg):
+async def skip_ad_windos(bot:Client, msg:Message):
     #اليوسر ايد الخاص بالمرسل
     user_id = msg.from_user.id
 
@@ -318,16 +331,83 @@ async def skip_ad_windos(bot:Client, msg):
 
     #اذا اليوسر مشترك بالقناه
     if user_id == ch or 'member' in req.text or 'creator' in req.text or 'administartor' in req.text:
-        #رابط الفيديو
-        vidio_dir = 'media/how to skip the link.mp4'
+        
+        try:
+            #رابط الفيديو
+            vidio_dir = "http://res.cloudinary.com/dfcge5cyk/video/upload/c_limit,h_150/f_mp4,du_30/v1708668734/randoms/randoms_pc/hs5vmpnysosxp1wfa5zg.mp4"
+            #ارسال الفيديو
+            await bot.send_video(user_id, vidio_dir)
+        except:
+            text  = 'يوجد مشكله بارسال الفيديو'
+            await bot.send_message(user_id, text)
+    else:
+        ch = "RANDOMS_CH" # يوزر القناة بدون @ 
+        k = InlineKeyboardMarkup([[InlineKeyboardButton(f"RANDOMS_CH",url=f"t.me/{ch}")]])
+        await msg.reply_text(f"""**عذرا عزيزي - {msg.from_user.first_name}  عليك الاشتراك في قناة**""",reply_markup=k,disable_web_page_preview=True)		
 
-        #ارسال الفيديو
-        await msg.reply_video(vidio_dir)
+
+#ارسال مقطع اختصار الروابط ios
+@bot_pyrogram.on_message(filters.regex('تخطي الاعلانات لاجهزه ios'))
+async def skip_ad_windos(bot:Client, msg:Message):
+    #اليوسر ايد الخاص بالمرسل
+    user_id = msg.from_user.id
+
+    # يوزر القناة بدون @
+    ch = "RANDOMS_CH" 
+    # المستخدم من اجل التاكد من اشتراكه في البوت  id استخراج
+    # توكن البوت - ورفعه مشرف بالقناه 
+    token = bot_token
+    url = f"https://api.telegram.org/bot{token}/getchatmember?chat_id=@{ch}&user_id={user_id}"
+    req =  requests.get(url)
+
+    #اذا اليوسر مشترك بالقناه
+    if user_id == ch or 'member' in req.text or 'creator' in req.text or 'administartor' in req.text:
+
+        try:
+            #رابط الفيديو
+            vidio_dir = "https://res.cloudinary.com/dfcge5cyk/video/upload/v1708685008/randoms/randoms_pc/yfnhfu9ifjnarrjrq4ql.mp4"
+            #ارسال الفيديو
+            await bot.send_video(user_id, vidio_dir)
+        except:
+            text  = 'يوجد مشكله بارسال الفيديو'
+            await bot.send_message(user_id, text)
 
     else:
         ch = "RANDOMS_CH" # يوزر القناة بدون @ 
         k = InlineKeyboardMarkup([[InlineKeyboardButton(f"RANDOMS_CH",url=f"t.me/{ch}")]])
         await msg.reply_text(f"""**عذرا عزيزي - {msg.from_user.first_name}  عليك الاشتراك في قناة**""",reply_markup=k,disable_web_page_preview=True)		
+
+#ارسال مقطع اختصار الروابط android
+@bot_pyrogram.on_message(filters.regex('تخطي الاعلانات لاجهزه android'))
+async def skip_ad_windos(bot:Client, msg:Message):
+    #اليوسر ايد الخاص بالمرسل
+    user_id = msg.from_user.id
+
+    # يوزر القناة بدون @
+    ch = "RANDOMS_CH" 
+    # المستخدم من اجل التاكد من اشتراكه في البوت  id استخراج
+    # توكن البوت - ورفعه مشرف بالقناه 
+    token = bot_token
+    url = f"https://api.telegram.org/bot{token}/getchatmember?chat_id=@{ch}&user_id={user_id}"
+    req =  requests.get(url)
+
+    #اذا اليوسر مشترك بالقناه
+    if user_id == ch or 'member' in req.text or 'creator' in req.text or 'administartor' in req.text:
+
+        try:
+            #رابط الفيديو
+            vidio_dir = "https://res.cloudinary.com/dfcge5cyk/video/upload/v1708690569/randoms/randoms_pc/yiexgixbr9zaaryaxhfp.mp4"
+            #ارسال الفيديو
+            await bot.send_video(user_id, vidio_dir)
+        except:
+            text  = 'يوجد مشكله بارسال الفيديو'
+            await bot.send_message(user_id, text)
+
+    else:
+        ch = "RANDOMS_CH" # يوزر القناة بدون @ 
+        k = InlineKeyboardMarkup([[InlineKeyboardButton(f"RANDOMS_CH",url=f"t.me/{ch}")]])
+        await msg.reply_text(f"""**عذرا عزيزي - {msg.from_user.first_name}  عليك الاشتراك في قناة**""",reply_markup=k,disable_web_page_preview=True)		
+
 
 #للعوده للصفحه الرئيسيه للبوت
 @bot_pyrogram.on_message(filters.regex('<<عوده'))
@@ -376,6 +456,8 @@ async def movie_name(bot:Client, msg):
     #اذا اليوسر مشترك بالقناه
     if user_id == ch or 'member' in req.text or 'creator' in req.text or 'administartor' in req.text:
 
+        msg_for_bot = await bot.send_message ( user_id, "تتم المعالجه..." )
+
         #اسم البرنامج الذي ارسله المستخدم
         try:
             #استخلاص كلمه من رساله المستخدم p 
@@ -394,12 +476,14 @@ async def movie_name(bot:Client, msg):
             # bot.send_message(user_id, name_of_the_movie)
 
         except IndexError:
+            await msg_for_bot.delete()
             await bot.send_message(user_id, 'اكتب اسم البرنامج مع رقم السيرفر')
             
         #ما العمليه التي ستتم عند اختياره لسيرفر معين 
             
         try:
             if num_of_the_server == "1":
+
                 nummber_of_the_server.append('server one 1')
 
                 app_name_split = name_of_the_program.split()
@@ -413,8 +497,10 @@ async def movie_name(bot:Client, msg):
 
                 try:
                     servers_dic['server_one'].extend(a)
+                    await msg_for_bot.delete()
                     await button_generater_func(a, InlineKeyboardButton, InlineKeyboardMarkup, msg)
                 except:
+                    await msg_for_bot.delete()
                     await bot.send_message ( user_id, "البرنامج غير موجود تاكد من الاسم او اعد المحاوله لاحقا" )
 
 
@@ -431,12 +517,13 @@ async def movie_name(bot:Client, msg):
 
                 try:
                     servers_dic['server_two'].extend(a)
+                    await msg_for_bot.delete()
                     await button_generater_func(a, InlineKeyboardButton, InlineKeyboardMarkup, msg)
                 except:
+                    await msg_for_bot.delete()
                     await bot.send_message ( user_id, "البرنامج غير موجود تاكد من الاسم او اعد المحاوله لاحقا" )
 
             
-
             elif num_of_the_server == '3':
                 nummber_of_the_server.append('server three 3')
 
@@ -450,8 +537,10 @@ async def movie_name(bot:Client, msg):
 
                 try:
                     servers_dic['server_three'].extend(a)
+                    await msg_for_bot.delete()
                     await button_generater_func(a, InlineKeyboardButton, InlineKeyboardMarkup, msg)
                 except:
+                    await msg_for_bot.delete()
                     await bot.send_message ( user_id, "البرنامج غير موجود تاكد من الاسم او اعد المحاوله لاحقا" )
 
 
@@ -571,9 +660,7 @@ async def handle_button_click ( client:Client, query ) :
 
 
 if __name__ == "__main__":
-    print("flask is good")
     keep_alive()
-    print('bot randoms_pc is work :)')
     bot_pyrogram.run()
 
 else:
