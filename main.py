@@ -23,7 +23,7 @@ else:
     write(db_path, [])
 data = read(db_path)
 
-bot_token="6626941096:AAERjvdFJsOV7y3p3mng0cH8geFe6x1Y9Fs"
+bot_token="6104541947:AAEo6iheXd1IaI33yHtz9Ip_DuMVi3sXQCw"
 #معلومات و التعريف عن البوت
 bot_pyrogram = Client(
     name='Bot',
