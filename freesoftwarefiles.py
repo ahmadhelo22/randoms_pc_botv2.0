@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-def searsh_resolts_name_free_soft_ware(app_name):
+async def searsh_resolts_name_free_soft_ware(app_name):
     apps_list = []    
 
     try:
