@@ -513,8 +513,8 @@ async def movie_name(bot:Client, msg):
                 #اضافه ما بحث عنه المستخدم
                 servers_search_name_dic['server_two_search_name'].extend(app_name)
 
-                # a = await searsh_resolts_name_free_soft_ware(app_name)
-                a = await searsh_resolts_name_git_into_pc(app_name)
+                a = await searsh_resolts_name_free_soft_ware(app_name)
+                # a = await searsh_resolts_name_git_into_pc(app_name)
 
                 try:
                     servers_dic['server_two'].extend(a)
