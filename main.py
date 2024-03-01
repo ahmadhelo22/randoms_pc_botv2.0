@@ -233,7 +233,7 @@ async def pages_(bot:Client, msg):
         await msg.reply_text(f"""**عذرا عزيزي - {msg.from_user.first_name}  عليك الاشتراك في قناة**""",reply_markup=k,disable_web_page_preview=True)		
 
 #شرح كيف يعمل البوت
-@bot_pyrogram.on_message(filters.regex("كيف يعملالبوت"))
+@bot_pyrogram.on_message(filters.regex("كيف يعمل البوت"))
 async def pages_(bot:Client, msg):
     #اليوسر ايد الخاص بالمرسل
     user_id = msg.from_user.id
