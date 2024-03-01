@@ -12,7 +12,7 @@ from get_into_pc import searsh_resolts_name_git_into_pc, searsh_resolts_links_gi
 from freesoftwarefiles import searsh_resolts_name_free_soft_ware, searsh_resolts_links_free_soft_ware
 from allpcworld import searsh_resolts_name_allpcworld, searsh_resolts_links_allpcworld
 from buttons_replay import buttoms_replay, pages, how_to_skip_ads
-from texte_for_bot import skip_ads, suggestions, how_it_works, the_bots, the_user_helper, welcomeing_text
+from texte_for_bot import skip_ads, suggestions, how_it_works, the_bots, the_user_helper, welcomeing_text, about_the_bot
 from data import write, read
 
 # تجهيز قاعده البيانات لاضافع ال id 
@@ -31,6 +31,21 @@ bot_pyrogram = Client(
     api_id=29817603,
     bot_token=bot_token
 )
+
+# import cloudinary
+# from cloudinary import api
+          
+# cloudinary.config( 
+#   cloud_name = "dfcge5cyk", 
+#   api_key = "134661978192455", 
+#   api_secret = "ra_-5eV6TDbAyLA4FTLDL_NS9pg" 
+# )
+
+
+
+# result = cloudinary.api.resource_by_asset_id("20999225c5c0935cd259493c91c2774d")
+# print(result)
+
 
 # #الحصول على جميع id الن\مستخدمين في القناه
 # ch = "RANDOMS_CH" 
@@ -64,6 +79,12 @@ servers_dic = {
 
 #لمعرفه اي سيرفر اختار العميل
 nummber_of_the_server = []
+
+#مولد لنكات الصفحات
+async def link_buttom_for_accounts(msg, link, app_name):
+        
+        k = InlineKeyboardMarkup([[InlineKeyboardButton(f"RANDOMS",url=f"{link}")]])
+        await msg.reply_text(f"شاهد كل جديد على {app_name}",reply_markup=k,disable_web_page_preview=True)		
 
 
 #########################################################
@@ -212,7 +233,7 @@ async def pages_(bot:Client, msg):
         await msg.reply_text(f"""**عذرا عزيزي - {msg.from_user.first_name}  عليك الاشتراك في قناة**""",reply_markup=k,disable_web_page_preview=True)		
 
 #شرح كيف يعمل البوت
-@bot_pyrogram.on_message(filters.regex('حول عمل البوت'))
+@bot_pyrogram.on_message(filters.regex("كيف يعملالبوت"))
 async def pages_(bot:Client, msg):
     #اليوسر ايد الخاص بالمرسل
     user_id = msg.from_user.id
@@ -238,7 +259,7 @@ async def pages_(bot:Client, msg):
 
 #للتواصل معي بخصوص البوت
 @bot_pyrogram.on_message(filters.regex('لاي اقتراحات'))
-async def pages_(bot:Client, msg):
+async def pages_(bot:Client, msg:Message):
     #اليوسر ايد الخاص بالمرسل
     user_id = msg.from_user.id
 
@@ -253,7 +274,23 @@ async def pages_(bot:Client, msg):
     #اذا اليوسر مشترك بالقناه
     if user_id == ch or 'member' in req.text or 'creator' in req.text or 'administartor' in req.text:
         # ارسال الرساله الترحيبيه
-        await bot.send_message(user_id, suggestions())
+
+        k = InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(f"TELEGRAM",url=f"https://t.me/ahmad0alhelo")
+                ],
+                [
+                    InlineKeyboardButton(f"INSTAGRAM",url=f"https://www.instagram.com/ahmad.alhelok/?hl=ar")
+                ],
+                [
+                    InlineKeyboardButton(f'FACEBOOK', url='https://www.facebook.com/ahmad.alhel0')
+                ]
+            ]
+            )
+
+        await msg.reply_text(suggestions(),reply_markup=k,disable_web_page_preview=True)		
+
 
     else:
         ch = "RANDOMS_CH" # يوزر القناة بدون @ 
@@ -284,8 +321,54 @@ async def pages_(bot:Client, msg):
         k = InlineKeyboardMarkup([[InlineKeyboardButton(f"RANDOMS_CH",url=f"t.me/{ch}")]])
         await msg.reply_text(f"""**عذرا عزيزي - {msg.from_user.first_name}  عليك الاشتراك في قناة**""",reply_markup=k,disable_web_page_preview=True)		
 
+
+
+@bot_pyrogram.on_message(filters.regex('حول البوت'))
+async def pages_(bot:Client, msg:Message):
+    #اليوسر ايد الخاص بالمرسل
+    user_id = msg.from_user.id
+
+        # يوزر القناة بدون @
+    ch = "RANDOMS_CH" 
+    # المستخدم من اجل التاكد من اشتراكه في البوت  id استخراج
+    # توكن البوت - ورفعه مشرف بالقناه 
+    token = bot_token
+    url = f"https://api.telegram.org/bot{token}/getchatmember?chat_id=@{ch}&user_id={user_id}"
+    req =  requests.get(url)
+
+    #اذا اليوسر مشترك بالقناه
+    if user_id == ch or 'member' in req.text or 'creator' in req.text or 'administartor' in req.text:
+        # ارسال الرساله الترحيبيه
+
+        k = InlineKeyboardMarkup(
+            [
+                [
+                    InlineKeyboardButton(f"TELEGRAM",url=f"https://t.me/ahmad0alhelo")
+                ],
+                [
+                    InlineKeyboardButton(f"INSTAGRAM",url=f"https://www.instagram.com/ahmad.alhelok/?hl=ar")
+                ],
+                [
+                    InlineKeyboardButton(f'FACEBOOK', url='https://www.facebook.com/ahmad.alhel0')
+                ]
+            ]
+            )
+
+        await msg.reply_text(about_the_bot(),reply_markup=k,disable_web_page_preview=True)		
+
+
+    else:
+        ch = "RANDOMS_CH" # يوزر القناة بدون @ 
+        k = InlineKeyboardMarkup([[InlineKeyboardButton(f"RANDOMS_CH",url=f"t.me/{ch}")]])
+        await msg.reply_text(f"""**عذرا عزيزي - {msg.from_user.first_name}  عليك الاشتراك في قناة**""",reply_markup=k,disable_web_page_preview=True)		
+
+
+
+
+
+
 #لتخطي الاعلانات
-@bot_pyrogram.on_message(filters.regex('كيف تتخطا الاعلانات'))
+@bot_pyrogram.on_message(filters.regex('كيف تتخطى الاعلانات'))
 async def pages_(bot:Client, msg):
     #اليوسر ايد الخاص بالمرسل
     user_id = msg.from_user.id
@@ -334,7 +417,7 @@ async def skip_ad_windos(bot:Client, msg:Message):
         
         try:
             #رابط الفيديو
-            vidio_dir = "http://res.cloudinary.com/dfcge5cyk/video/upload/c_limit,h_150/f_mp4,du_30/v1708668734/randoms/randoms_pc/hs5vmpnysosxp1wfa5zg.mp4"
+            vidio_dir = "http://res.cloudinary.com/dfcge5cyk/video/upload/v1708674277/randoms/randoms_pc/qd9giznboludecvhctku.mp4"
             #ارسال الفيديو
             await bot.send_video(user_id, vidio_dir)
         except:
@@ -408,7 +491,166 @@ async def skip_ad_windos(bot:Client, msg:Message):
         k = InlineKeyboardMarkup([[InlineKeyboardButton(f"RANDOMS_CH",url=f"t.me/{ch}")]])
         await msg.reply_text(f"""**عذرا عزيزي - {msg.from_user.first_name}  عليك الاشتراك في قناة**""",reply_markup=k,disable_web_page_preview=True)		
 
+# ==================================
+        #الصفحات
 
+@bot_pyrogram.on_message(filters.regex("YOUTUBE"))
+async def pages_(bot:Client, msg):
+    #اليوسر ايد الخاص بالمرسل
+    user_id = msg.from_user.id
+
+
+    # يوزر القناة بدون @
+    ch = "RANDOMS_CH" 
+    # المستخدم من اجل التاكد من اشتراكه في البوت  id استخراج
+    # توكن البوت - ورفعه مشرف بالقناه 
+    token = bot_token
+    url = f"https://api.telegram.org/bot{token}/getchatmember?chat_id=@{ch}&user_id={user_id}"
+    req =  requests.get(url)
+
+    #اذا اليوسر مشترك بالقناه
+    if user_id == ch or 'member' in req.text or 'creator' in req.text or 'administartor' in req.text:
+        # ارسال الرساله الترحيبيه
+        link = 'https://www.youtube.com/channel/UCFtDm5Bdq2KZdWCkmHPiBYw'
+        app_name = 'YOUTUBE'
+        await link_buttom_for_accounts(msg, link, app_name)
+
+    else:
+        ch = "RANDOMS_CH" # يوزر القناة بدون @ 
+        k = InlineKeyboardMarkup([[InlineKeyboardButton(f"RANDOMS_CH",url=f"t.me/{ch}")]])
+        await msg.reply_text(f"""**عذرا عزيزي - {msg.from_user.first_name}  عليك الاشتراك في قناة**""",reply_markup=k,disable_web_page_preview=True)		
+
+@bot_pyrogram.on_message(filters.regex("FACEBOOK"))
+async def pages_(bot:Client, msg):
+    #اليوسر ايد الخاص بالمرسل
+    user_id = msg.from_user.id
+
+
+    # يوزر القناة بدون @
+    ch = "RANDOMS_CH" 
+    # المستخدم من اجل التاكد من اشتراكه في البوت  id استخراج
+    # توكن البوت - ورفعه مشرف بالقناه 
+    token = bot_token
+    url = f"https://api.telegram.org/bot{token}/getchatmember?chat_id=@{ch}&user_id={user_id}"
+    req =  requests.get(url)
+
+    #اذا اليوسر مشترك بالقناه
+    if user_id == ch or 'member' in req.text or 'creator' in req.text or 'administartor' in req.text:
+        # ارسال الرساله الترحيبيه
+        link = 'https://www.facebook.com/profile.php?id=61556736453822'
+        app_name = 'FACEBOOK'
+        await link_buttom_for_accounts(msg, link, app_name)
+
+    else:
+        ch = "RANDOMS_CH" # يوزر القناة بدون @ 
+        k = InlineKeyboardMarkup([[InlineKeyboardButton(f"RANDOMS_CH",url=f"t.me/{ch}")]])
+        await msg.reply_text(f"""**عذرا عزيزي - {msg.from_user.first_name}  عليك الاشتراك في قناة**""",reply_markup=k,disable_web_page_preview=True)		
+
+@bot_pyrogram.on_message(filters.regex("INSTAGRAM"))
+async def pages_(bot:Client, msg):
+    #اليوسر ايد الخاص بالمرسل
+    user_id = msg.from_user.id
+
+
+    # يوزر القناة بدون @
+    ch = "RANDOMS_CH" 
+    # المستخدم من اجل التاكد من اشتراكه في البوت  id استخراج
+    # توكن البوت - ورفعه مشرف بالقناه 
+    token = bot_token
+    url = f"https://api.telegram.org/bot{token}/getchatmember?chat_id=@{ch}&user_id={user_id}"
+    req =  requests.get(url)
+
+    #اذا اليوسر مشترك بالقناه
+    if user_id == ch or 'member' in req.text or 'creator' in req.text or 'administartor' in req.text:
+        # ارسال الرساله الترحيبيه
+        link = 'https://www.instagram.com/_a_randoms_/'
+        app_name = 'INSTAGRAM'
+        await link_buttom_for_accounts(msg, link, app_name)
+
+    else:
+        ch = "RANDOMS_CH" # يوزر القناة بدون @ 
+        k = InlineKeyboardMarkup([[InlineKeyboardButton(f"RANDOMS_CH",url=f"t.me/{ch}")]])
+        await msg.reply_text(f"""**عذرا عزيزي - {msg.from_user.first_name}  عليك الاشتراك في قناة**""",reply_markup=k,disable_web_page_preview=True)		
+
+@bot_pyrogram.on_message(filters.regex("TIK TOK"))
+async def pages_(bot:Client, msg):
+    #اليوسر ايد الخاص بالمرسل
+    user_id = msg.from_user.id
+
+
+    # يوزر القناة بدون @
+    ch = "RANDOMS_CH" 
+    # المستخدم من اجل التاكد من اشتراكه في البوت  id استخراج
+    # توكن البوت - ورفعه مشرف بالقناه 
+    token = bot_token
+    url = f"https://api.telegram.org/bot{token}/getchatmember?chat_id=@{ch}&user_id={user_id}"
+    req =  requests.get(url)
+
+    #اذا اليوسر مشترك بالقناه
+    if user_id == ch or 'member' in req.text or 'creator' in req.text or 'administartor' in req.text:
+        # ارسال الرساله الترحيبيه
+        link = 'https://www.tiktok.com/@_randoms_a_'
+        app_name = 'TIK TOK'
+        await link_buttom_for_accounts(msg, link, app_name)
+
+    else:
+        ch = "RANDOMS_CH" # يوزر القناة بدون @ 
+        k = InlineKeyboardMarkup([[InlineKeyboardButton(f"RANDOMS_CH",url=f"t.me/{ch}")]])
+        await msg.reply_text(f"""**عذرا عزيزي - {msg.from_user.first_name}  عليك الاشتراك في قناة**""",reply_markup=k,disable_web_page_preview=True)		
+
+@bot_pyrogram.on_message(filters.regex("TELEGRAM"))
+async def pages_(bot:Client, msg):
+    #اليوسر ايد الخاص بالمرسل
+    user_id = msg.from_user.id
+
+
+    # يوزر القناة بدون @
+    ch = "RANDOMS_CH" 
+    # المستخدم من اجل التاكد من اشتراكه في البوت  id استخراج
+    # توكن البوت - ورفعه مشرف بالقناه 
+    token = bot_token
+    url = f"https://api.telegram.org/bot{token}/getchatmember?chat_id=@{ch}&user_id={user_id}"
+    req =  requests.get(url)
+
+    #اذا اليوسر مشترك بالقناه
+    if user_id == ch or 'member' in req.text or 'creator' in req.text or 'administartor' in req.text:
+        # ارسال الرساله الترحيبيه
+        link = 't.me/RANDOMS_CH'
+        app_name = 'TELEGRAM'
+        await link_buttom_for_accounts(msg, link, app_name)
+
+    else:
+        ch = "RANDOMS_CH" # يوزر القناة بدون @ 
+        k = InlineKeyboardMarkup([[InlineKeyboardButton(f"RANDOMS_CH",url=f"t.me/{ch}")]])
+        await msg.reply_text(f"""**عذرا عزيزي - {msg.from_user.first_name}  عليك الاشتراك في قناة**""",reply_markup=k,disable_web_page_preview=True)		
+
+@bot_pyrogram.on_message(filters.regex("BIGO LIVE"))
+async def pages_(bot:Client, msg):
+    #اليوسر ايد الخاص بالمرسل
+    user_id = msg.from_user.id
+
+
+    # يوزر القناة بدون @
+    ch = "RANDOMS_CH" 
+    # المستخدم من اجل التاكد من اشتراكه في البوت  id استخراج
+    # توكن البوت - ورفعه مشرف بالقناه 
+    token = bot_token
+    url = f"https://api.telegram.org/bot{token}/getchatmember?chat_id=@{ch}&user_id={user_id}"
+    req =  requests.get(url)
+
+    #اذا اليوسر مشترك بالقناه
+    if user_id == ch or 'member' in req.text or 'creator' in req.text or 'administartor' in req.text:
+        # ارسال الرساله الترحيبيه
+        link = 'https://www.bigo.tv/user/985447292'
+        app_name = 'BIGO LIVE'
+        await link_buttom_for_accounts(msg, link, app_name)
+
+    else:
+        ch = "RANDOMS_CH" # يوزر القناة بدون @ 
+        k = InlineKeyboardMarkup([[InlineKeyboardButton(f"RANDOMS_CH",url=f"t.me/{ch}")]])
+        await msg.reply_text(f"""**عذرا عزيزي - {msg.from_user.first_name}  عليك الاشتراك في قناة**""",reply_markup=k,disable_web_page_preview=True)		
+
+# ====================================
 #للعوده للصفحه الرئيسيه للبوت
 @bot_pyrogram.on_message(filters.regex('<<عوده'))
 async def pages_(bot:Client, msg):
@@ -520,10 +762,9 @@ async def movie_name(bot:Client, msg):
                     servers_dic['server_two'].extend(a)
                     await msg_for_bot.delete()
                     await button_generater_func(a, InlineKeyboardButton, InlineKeyboardMarkup, msg)
-                except Exception as e :
+                except Exception as e:
                     await msg_for_bot.delete()
                     await bot.send_message ( user_id, "البرنامج غير موجود تاكد من الاسم او اعد المحاوله لاحقا" )
-                    await bot.send_message ( user_id, e )
 
             
             elif num_of_the_server == '3':
@@ -623,7 +864,7 @@ async def handle_button_click ( client:Client, query ) :
             #محي جميع السماء الافلام من الدكشنري ليبدا من جديد
             servers_dic['server_two'].clear()
 
-        except:
+        except Ellipsis as e:
             await query.message.reply_text ( 'تم محي البيانات المؤقته عاود بعد قليل بسبب الضغط...'  )
 
     elif 'server three 3' in  nummber_of_the_server:
