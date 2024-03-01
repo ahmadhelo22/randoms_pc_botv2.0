@@ -17,8 +17,6 @@ def suggestions ():
     randoms.requests@gmail.com
 
     او عبر صفحاتي عبر مواقع التواصل الاجتماعي 
-    INSTAGRAM: @ahmad.alhelok
-    TELEGRAM: @ahmad0alhelo
     '''
 
     return suggestions
@@ -58,8 +56,18 @@ def the_user_helper():
 def welcomeing_text ():
 
     text = """
-    اهلا بك في RANDOMS_PC
-    لمعرفه كيف تبحث على البرامج اضغط \n حول عمل البوت
+    اهلا بك في RANDOMS_pc \n  افضل بوت لتحميل اي برنامج مدفوع بشكل مجاني و من ثلاث سيرفرات مختلفه
+    لمعرفه كيف تبحث على البرامج اضغط \n كيف يعمل البوت
     """
+    return text
+
+def about_the_bot ():
+
+    text = '''
+    RANDOMS_pc
+    الاصدار: 2.0
+    يسهل عليك البحث على البرامج المجانيه و الامضمونه حفاظا على وقتك
+    لتطوير بوتك الخاص يمكنك التواصل معنا
+    '''
 
     return text
